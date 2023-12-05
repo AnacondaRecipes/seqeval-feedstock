@@ -26,13 +26,18 @@ requirements:
     - scikit-learn >=0.21.3
 
 test:
+  source_files:
+    - tests
   imports:
     - seqeval
     - seqeval.metrics
   requires:
     - pip
+    - pytest
   commands:
     - pip check
+    # Skip tests that depend on perl because they are too slow.
+    - pytest -v tests -k "not (test_by_ground_truth or test_statistical_tests)"
 
 about:
   home: https://github.com/chakki-works/seqeval
