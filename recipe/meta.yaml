@@ -10,31 +10,37 @@ source:
   sha256: f28e97c3ab96d6fcd32b648f6438ff2e09cfba87f05939da9b3970713ec56e6f
 
 build:
-  noarch: python
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
     - setuptools_scm
+    - setuptools
+    - wheel
   run:
-    - numpy
-    - python >=3.6
-    - scikit-learn
+    - numpy >=1.14.0
+    - python
+    - scikit-learn >=0.21.3
 
 test:
   imports:
     - seqeval
     - seqeval.metrics
+  requires:
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/chakki-works/seqeval
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: Testing framework for sequence labeling
+  summary: A Python framework for sequence labeling evaluation(named-entity recognition, pos tagging, etc...)
+  description: seqeval is a Python framework for sequence labeling evaluation. seqeval can evaluate the performance of chunking tasks such as named-entity recognition, part-of-speech tagging, semantic role labeling and so on.
   doc_url: https://pypi.org/project/seqeval/
   dev_url: https://github.com/chakki-works/seqeval
 
